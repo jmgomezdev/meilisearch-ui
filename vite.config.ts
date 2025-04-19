@@ -1,27 +1,12 @@
-import { execSync } from "node:child_process";
-import path from "node:path";
 import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
 import react from "@vitejs/plugin-react-swc";
+import path from "node:path";
 import UnoCSS from "unocss/vite";
 // vite.config.ts
-import { type Plugin, defineConfig, loadEnv } from "vite";
+import { defineConfig, loadEnv } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import SemiPlugin from "./src/lib/semi";
 
-// Plugin to get Git hash
-function gitHashPlugin(): Plugin {
-	return {
-		name: "git-hash-plugin",
-		config: () => {
-			const hash = execSync("git rev-parse HEAD").toString().trim();
-			return {
-				define: {
-					__GIT_HASH__: JSON.stringify(hash),
-				},
-			};
-		},
-	};
-}
 
 export default defineConfig(({ mode }) => {
 	const env = loadEnv(mode, process.cwd(), "");
@@ -36,7 +21,6 @@ export default defineConfig(({ mode }) => {
 			SemiPlugin({
 				theme: "@semi-bot/semi-theme-meilisearch",
 			}),
-			gitHashPlugin(),
 		],
 		resolve: {
 			alias: {

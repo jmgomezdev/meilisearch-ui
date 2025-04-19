@@ -8,11 +8,10 @@ const meilisearchJSVersion = packageJson.dependencies.meilisearch.replace(
 	"",
 );
 
-declare const __GIT_HASH__: string;
 
 export const Version: FC = () => {
 	const { t } = useTranslation();
-	const gitHash = __GIT_HASH__ || "unknown";
+	const gitHash = "unknown";
 
 	return (
 		<span className="flex items-center gap-4">
